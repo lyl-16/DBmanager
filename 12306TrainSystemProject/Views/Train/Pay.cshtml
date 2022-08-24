@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewData["Title"] = "Pay";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pay</title>
+    <script src="js/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div style="height: 200px;width: 900px; color: rgb(0, 0, 0);background-color: white;">
+        <div id="stta" style="text-align: center;position:absolute; left: 10px; top: 15px; border-radius: 20px;font-size: 20px;height: 160px;width: 200px; background-color: rgb(147, 147, 245);">
+            <p>起始站</p>
+        </div>
+        <div id="endd" style="text-align: center;position:absolute; left: 500px; top: 15px; border-radius: 20px;font-size: 20px;height: 160px;width: 200px; background-color: rgb(147, 147, 245);">
+            <p>终点站</p>
+        </div>
+    </div>
+
+    <div id="cc" style="position:absolute;top:40px;left:310px">
+        <img src="images/row.jpg" style="position:absolute;top: 40px; left: -50px">
+    </div>
+    <div id="info" style="border-radius: 20px;height: 180px;width: 700px; color: rgb(0, 0, 0);background-color: white;border: 1px solid rgb(97, 130, 240);">
+        <p>&emsp;&emsp;填写乘车人信息</p>
+        <p>&emsp;&emsp;身份证号：<input id="idcar"></p>
+        <p>&emsp;&emsp;姓名：<input id="namme"></p>
+        &emsp;&emsp;选择座位类型：<input type="radio" name="lei" value="fir">商务座
+        <input type="radio" name="lei" value="yi">一等座
+        <input type="radio" name="lei" value="er">二等座
+        <input type="radio" name="lei">一等卧
+        <input type="radio" name="lei">二等卧
+    </div>
+    <div style="border-radius: 20px;height: 180px;width: 700px;background-color: aliceblue;">
+        <p>&emsp;</p>
+        <p>&emsp;&emsp;请选择支付方式：</p>
+        &emsp;&emsp;<input type="radio" name="zf">微信支付
+        <input type="radio" name="zf">支付宝支付
+        <p>&emsp;&emsp;<button onclick="pg()">订票</button></p>
+    </div>
+    <script>
+        function pg(){
+            var str=document.getElementsByName("lei");
+            var obja=str.length;
+            var choose=0;
+            for(choose=0;choose<obja;choose++){
+                if(str[choose].checked==true)
+                    break;
+            }
+            $.ajax({
+                type:"post",
+                url:"./hh",
+                data:{"idcar":document.getElementById("idcar").value,"namme":document.getElementById("namme").value,"zuo":document.getElementsByName("lei")[choose].value},
+                success: function(result){
+                    alert("订票成功");
+
+                },
+                error: function(){
+                    alert("订票失败");
+                }
+            })
+            //alert("订票成功");
+        }
+    </script>
+    <script> 
+        var sta=decodeURI(window.location.href).split('?')[1].split('=')[0];
+        var end=decodeURI(window.location.href).split('?')[1].split('=')[1];
+        var st=decodeURI(window.location.href).split('?')[1].split('=')[2];
+        var en=decodeURI(window.location.href).split('?')[1].split('=')[3];
+        var ccc=decodeURI(window.location.href).split('?')[1].split('=')[4];
+        var daa=decodeURI(window.location.href).split('?')[1].split('=')[5];
+        document.getElementById('stta').innerHTML+="<p>"+sta+"</p>";
+        document.getElementById('stta').innerHTML+="<p>"+st+"</p>";
+        document.getElementById('endd').innerHTML+="<p>"+end+"</p>";
+        document.getElementById('endd').innerHTML+="<p>"+en+"</p>";
+        document.getElementById('cc').innerHTML+="<p>"+daa+"</p>";
+        document.getElementById('cc').innerHTML+="<p>"+ccc+"</p>";
+    </script>
+</body>
+</html>
+
+

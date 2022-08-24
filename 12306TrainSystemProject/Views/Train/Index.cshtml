@@ -1,0 +1,196 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>train</title>
+    <script>
+        var mid;
+        var x=1600;
+        var x2=1600;
+        var i=0;
+        var str="lbt";
+        var str2="lbt2";
+        setInterval("set()",5000);
+        function set(){
+            mid=setInterval("change()",1);
+        }
+        function change(){
+                x-=2;
+                document.getElementById(str2).style.left=x+'px';
+                document.getElementById(str).style.left=x-1600+'px';
+                if(x==0){
+                    clearInterval(mid);
+                    x=1600;
+                }
+        }
+    </script>
+
+</head>
+<body>
+    <div style="line-height: 50px;font-size: 20px;height: 50px;width: 1600px; color: rgb(255, 255, 255);background-color: rgb(97, 130, 240);">
+        &emsp;&emsp;&emsp;<a style="text-decoration:none; color: white;" href="/Train">铁路购票系统</a>&emsp;&emsp;<a style="text-decoration:none; color: white;" href="/Train/Buy">购票</a>&emsp;&emsp;
+        <a href="/Login">
+        登录/</a>
+        <a href="/Register">
+        注册
+    </a>
+    </div>
+    <div style="position:absolute; top:55px; left: 0px;height:610px; width: 1600px; overflow: hidden;">
+        <img id="lbt" src="images/main1.png" style="position:absolute;top: 55px;">
+        <img id="lbt2" src="images/main2.png" style="position:absolute;top: 55px; left: 1600px">
+    </div>
+    <div id="cc" style="position:absolute; top:300px; left: 300px;height:200px; width: 400px; background-color: rgb(255, 255, 255);">
+
+        <p>&emsp;&emsp;</p>
+        <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;车次：<input name="num"></p>
+        <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;日期：<input name="date"></p>
+        <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<button style="width: 100px">查询</button></p>
+
+    </div>
+    <div id="sc" style="position:absolute; top:300px; left: 300px;height:200px; width: 400px; background-color: rgb(255, 255, 255);">
+
+        <p>&emsp;&emsp;</p>
+        <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;始发站：<input onclick="in1()" id="bef" name="始发站"></p>
+        <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;终点站：<input onclick="in2()" name="终点站" id="bef2"></p>
+        <p name="da">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;出发日期：
+            <select name="date" onchange="ch()">
+            </select>
+            <select name="datem" onchange="chm()">
+            </select>
+            <select name="dated">
+            </select>
+        </p>
+        <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<button onclick="ser()" style="width: 100px">查询</button></p>
+        <div id="xuanze" style='display: none; position:absolute; border:1px solid rgb(121, 173, 245); top:50px; left: 350px;height:200px; width: 200px; overflow: scroll; background-color: rgb(255, 255, 255);'></div>
+
+    </div>
+    <button id="bc" onclick="hid1()" style="position:absolute; top:300px; left: 300px;background-color: rgb(121, 173, 245);border-width: 1px; color:rgb(255, 255, 255); height:100px; width: 100px;">
+        选择车票
+    </button>
+    <button id="bs" onclick="hid2()" style="position:absolute; top:400px; left: 300px;background-color: rgb(128, 128, 237);border-width: 1px; color:rgb(255, 255, 255);height:100px; width: 100px;">
+        查询车次
+    </button>
+    <div style="border-radius: 20px;border:1px ridge rgb(147, 147, 245);position:absolute;top:700px;left:100px;height:400px;width:1200px;overflow: hidden;background-color: aliceblue;">
+         <p style="position:absolute;left:400px;">网站信息</p>
+         <div style="position:absolute;left:40px;top:40px;height: 320px; width:1000px; overflow: scroll; background-color: white;border:1px solid rgb(147, 147, 245);">
+            &emsp;&emsp;<a href="test.txt">test</a>
+        </div>
+    </div>
+    <script>
+        function ser(){
+            window.location.href=encodeURI("buy.html?"+document.getElementById("bef").value+"&"+document.getElementById("bef2").value+"&"+document.getElementsByTagName("select")[0].value
+            +"&"+document.getElementsByName("datem")[0].value+"&"+document.getElementsByName("dated")[0].value);
+        }
+    </script>
+    <script>
+        var d=new Date();
+        var year=d.getFullYear();
+        var year2=d.getFullYear()+1;
+        var month2=d.getMonth()+2;
+        var month=d.getMonth()+1;
+        var daa=0;
+        var daiin=document.getElementsByTagName("select")[0];
+        daiin.innerHTML+="<option>"+year+"</option><option>"+year2+"</option>";    
+
+        var daiin2=document.getElementsByTagName("select")[1];
+        daiin2.innerHTML+="<option>"+month+"</option><option>"+month2+"</option>";        
+
+        var daiin3=document.getElementsByTagName("select")[2];
+        var md=new Array();
+        var yearc=document.getElementsByName("date")[0].value;
+        var mousc=document.getElementsByName("datem")[0].value;
+
+        function ch(){
+            yearc=document.getElementsByName("date")[0].value;
+        }
+        function chm(){
+            yearc=document.getElementsByName("datem")[0].value;
+        }
+        if(yearc%4==0)
+            md=[31,29,31,30,31,30,31,31,30,31,30,31];
+        else    
+            md=[31,28,31,30,31,30,31,31,30,31,30,31];
+        var dj=0;
+        for(dj=0;dj<md[mousc-1];dj++){
+            daa=dj+1;
+            daiin3.innerHTML+="<option>"+daa+"</option>";
+        }
+
+    </script>
+    <script>
+        function hid1(){
+            document.getElementById('bs').style.backgroundColor="rgb(128, 128, 237)";
+            document.getElementById('bc').style.backgroundColor="rgb(121, 173, 245)";
+
+            document.getElementsByTagName('div')[2].style.display="none";
+            document.getElementsByTagName('div')[3].style.display="block";
+        }
+        function hid2(){
+            document.getElementById('bc').style.backgroundColor="rgb(128, 128, 237)";
+            document.getElementById('bs').style.backgroundColor="rgb(121, 173, 245)";
+            document.getElementsByTagName('div')[3].style.display="none";
+            document.getElementsByTagName('div')[2].style.display="block";
+
+        }
+    </script>
+    <script>
+        function in1(){
+            lis(1, document.getElementById('bef').value);
+            document.getElementById('xuanze').style.display="block";
+        }
+        function in2(){
+            lis(2, document.getElementById('bef2').value);
+            document.getElementById('xuanze').style.display="block";
+        }
+        function cd(obj){
+            document.getElementById('bef').value= obj.innerHTML;
+            document.getElementById('xuanze').style.display="none";
+        }
+        function cd2(obj){
+            document.getElementById('bef2').value= obj.innerHTML;
+            document.getElementById('xuanze').style.display="none";
+        }
+        var a=new Array();
+        a=["北京","上海","天津","重庆","长沙","长春","成都","福州"];
+        function lis(p, cha){
+
+            var a2=new Array();
+
+            var i2=0;
+            var i3=0;
+            var x=0;
+            var y=0;
+            var chu;
+            for(i2=0, i3=0;i2<a.length;i2++){
+                if(a[i2].includes(cha)||cha==null){
+                    a2[i3]=a[i2];
+                    i3++;
+                }    
+            }
+            if(p==1)
+                chu="cd(this)";
+            else
+                chu="cd2(this)";
+            var before=document.getElementsByTagName('div')[4];
+            for(i2=0;i2<a.length;i2++){
+                x=0+i2%4*50;
+                y=0+Math.floor(i2/4)*20;
+                if(i2>a2.length||i2==a2.length){
+                    before.innerHTML+="<button id='"+i+"' onclick='"+chu+"' style='background-color: rgb(255, 255, 255);position:absolute; border-width:1px; top:"+y+"px; left: "+x+"px; width: 50px'>&emsp;</button>";
+                    continue;
+                }
+                before.innerHTML+="<button id='"+i+"' onclick='"+chu+"' style='background-color: rgb(255, 255, 255);position:absolute; border-width:1px; top:"+y+"px; left: "+x+"px; width: 50px'>"+a2[i2]+"</button>";
+            }
+        }
+
+    </script>
+
+</body>
+</html>
+
