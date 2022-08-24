@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<script>
+    function createCode() {
+        code = "";
+        var codeLength = 4;//验证码的长度  
+        var checkCode = document.getElementById("code");
+        var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+            'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');//随机数  
+        for (var i = 0; i < codeLength; i++) {//循环操作  
+            var index = Math.floor(Math.random() * 36);//取得随机数的索引（0~35）  
+            code += random[index];//根据索引取得随机数加到code上  
+        }
+        checkCode.value = code;//把code值赋给验证码  
+    }
+</script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12306登录</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/Login/css/m_login.css">
+
+
+
+</head>
+<body onload='createCode()'>
+    <div class="page-container">
+        <h1>登录12306</h1>
+        @*<form onsubmit="return false" action =~/Login/Index>*@
+        <form method="post" action="~/Login/Index">
+        <input type="text" name="username" id="username" class="username" placeholder="请输入您的用户名">
+        <input type="password" name="password" id="password" class="password" placeholder="请输入密码">
+        <input type="Captcha" id="Captcha" class="Captcha" name="Captcha" placeholder="输入验证码">
+        <input type="button" id="code" onclick="createCode()" style="height:40px;width:120px" title='点击更换验证码' />
+        <button type="submit" class="submit_button" id="button">登录</button>
+        <a href="/Register/Index" target="_blank">
+            <button type="button" class="register_button" id="register">注册</button>
+        </a>
+        <div class="error"><span>+</span></div>
+        </form>
+    </div>
+    <script src="~/Login/js/jquery.js"></script>
+    <script src="~/Login/js/logincheck.js"></script>
+</body>
+</html>
